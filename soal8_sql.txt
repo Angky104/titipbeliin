@@ -1,0 +1,18 @@
+1. SELECT * FROM worker WHERE SALARY BETWEEN 100000 AND 500000
+2. SELECT * FROM worker 	
+3. SELECT worker.*, title.*
+       FROM worker
+            JOIN title 
+                ON worker.WORKER_ID=title.WORKER_REF_ID WHERE title.WORKER_TITLE = 'Executive'
+4. SELECT COUNT(WORKER_ID) FROM worker GROUP BY DEPARTMENT
+5. SELECT COUNT(WORKER_ID), title.WORKER_TITLE
+      FROM worker
+           JOIN title 
+                ON worker.WORKER_ID=title.WORKER_REF_ID GROUP BY title.WORKER_TITLE
+6. SELECT CASE WHEN (worker.SALARY + SUM(bonus.BONUS_AMOUNT)) IS NULL THEN worker.SALARY ELSE (worker.SALARY + SUM(bonus.BONUS_AMOUNT)) END AS total, worker.*
+      FROM worker
+            JOIN title 
+                ON title.WORKER_REF_ID=worker.WORKER_ID 
+           LEFT JOIN bonus 
+                ON bonus.WORKER_REF_ID=title.WORKER_REF_ID AND MONTH(bonus.BONUS_DATE) = 2 
+           group BY worker.WORKER_ID
